@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<script src="~/Scripts/googleMap.js"></script>
+<h2>Contactati-ne!</h2>
+
+<address>
+    <b>
+        Tiha Bârgăului, Numărul 295, Județul Bistrița-Năsăud<br /><br />
+        <abbr title="Phone"><strong>Telefon:</strong> 0747-348.630, 0747-240.371, 0740-158.884</abbr>
+    </b>
+</address>
+
+<div id="map" style="width:80%;height:500px;"></div>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7385E3sjwvf87AzDJGakWKk8iRI1SX1Y&callback=myMap"></script>
+<script type="text/javascript">
+    function myMap() {
+        var myCenter = new google.maps.LatLng(47.22973968433303, 24.775307178497314);
+        var mapCanvas = document.getElementById("map");
+        var mapOptions = { center: myCenter, zoom: 3 };
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+        var marker = new google.maps.Marker({ position: myCenter });
+        marker.setMap(map);
+
+        var infowindow = new google.maps.InfoWindow();
+        infowindow.open(map, marker);
+
+    }
+</script>

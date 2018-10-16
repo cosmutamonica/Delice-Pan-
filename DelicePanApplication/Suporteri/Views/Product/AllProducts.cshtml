@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Suporteri.Models.Product>
+<link href="~/Style/style.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "AllProducts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Produsele noastre</h2>
+@if (this.User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Adauga produs nou", "Create")
+    </p>
+}
+@foreach (var item in Model)
+{
+    if (item.ProductID % 2 == 1)
+    {
+        <div class="left">
+            <div class="panel panel-default marginPanel text-center" style="height:460px">
+                <!-- Default panel contents -->
+                <div class="panel-heading">@Html.DisplayFor(modelItem => item.ProductName)</div>
+                <div class="panel-body" style="text-overflow: ellipsis; overflow:hidden !important;">
+                    <img src="@Html.DisplayFor(modelItem => item.ImagePath)" />
+                    @*  <img src="E:\DelicePanProject\DelicePanApplication\Suporteri\Images\paineFeliata.jpg" />*@
+                </div>
+                <div class="panel-footer">
+                    Pret: @Html.DisplayFor(modelItem => item.UnitPrice) RON /  @Html.DisplayFor(modelItem => item.Category)
+                </div>
+                @if (this.User.IsInRole("Admin"))
+                {
+                    <ul class="list-group">
+                        <li class="list-group-item">@Html.ActionLink("Delete", "Delete", new { id = item.ProductID })</li>
+                    </ul>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="right">
+            <div class="panel panel-default marginPanel text-center" style="height:460px">
+                <!-- Default panel contents -->
+                <div class="panel-heading">@Html.DisplayFor(modelItem => item.ProductName)</div>
+                <div class="panel-body" style="text-overflow: ellipsis; overflow:hidden !important; ">
+                    @* background-image: url('../..@Html.DisplayFor(modelItem => item.ImagePath)'); *@
+                    <img src="@Html.DisplayFor(modelItem => item.ImagePath)" />
+                </div>
+                <div class="panel-footer">
+                    Pret: @Html.DisplayFor(modelItem => item.UnitPrice) RON /  @Html.DisplayFor(modelItem => item.Category)
+                </div>
+                @if (this.User.IsInRole("Admin"))
+                {
+                    <ul class="list-group">
+                        <li class="list-group-item">@Html.ActionLink("Delete", "Delete", new { id = item.ProductID })</li>
+                    </ul>
+                }
+            </div>
+        </div>
+    }
+}

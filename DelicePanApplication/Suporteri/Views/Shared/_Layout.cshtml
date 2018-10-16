@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Style/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            
+            <div class="navbar-header" @*style="background-image: url('../../Images/sigla1.jpg');*@ ">
+                @*<img src="~/Images/sigla2.jpg" style="margin-left:-210px; height:50px" />*@
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Delice Pan", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Acasa", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Produse", "AllProducts", "Product")</li>
+                   
+                    @{
+                        if (this.User.Identity.IsAuthenticated)
+                        {                           
+                            if (this.User.IsInRole("Admin"))
+                            {
+                                <li>@Html.ActionLink("Comenzi", "GetOrderByAdmin", "Order")</li>
+                                <li>@Html.ActionLink("Productie", "DailyProduction", "Production")</li>
+
+                            }
+                            else if (this.User.IsInRole("Client"))
+                            {
+                                <li>@Html.ActionLink("Comenzi", "Create", "Order")</li>                               
+                            }                           
+                        }
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    <div class="container body-content">
+        @RenderBody()
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <footer class="footer">
+            <p>&copy; Monica Roxana Cosmuta - @DateTime.Now.Year</p>
+        </footer>
+    </div>
+
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
